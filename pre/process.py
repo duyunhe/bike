@@ -11,19 +11,21 @@ def process_data():
     cnt = 0
     for line in f.readlines():
         if cnt == 0:
-            cnt += 1
+            cnt = 1
             continue
         items = line.split(',')
         lng, lat = float(items[4].strip('"')), float(items[5].strip('"'))
+        if lng > 121 or lng < 119 or lat > 31 or lat < 29:
+            continue
         x, y = bl2xy(lat, lng)
         state = int(items[7].strip('"'))
         stime = items[3].strip('"')
         dtime = datetime.strptime(stime, '%Y/%m/%d %H:%M:%S')
         if state == 0:
             new_str = "{0},{1},{2}\n".format(x, y, stime)
-            if 6 <= dtime.hour < 9:
+            if 6 <= dtime.hour < 9 and dtime.day <= 5:
                 fp1.write(new_str)
-            elif 16 <= dtime.hour < 19:
+            elif 16 <= dtime.hour < 19 and dtime.day <= 5:
                 fp2.write(new_str)
         cnt += 1
     fp1.close()
