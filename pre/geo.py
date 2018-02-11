@@ -17,8 +17,8 @@ class XYZ(Structure):
 
 def bl2xy(b, l):
     """
-    :param b: longitude
-    :param l: latitude
+    :param b: latitude
+    :param l: longitude
     :return: x, y
     """
     blh = BLH()
